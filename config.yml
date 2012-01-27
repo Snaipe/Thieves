@@ -1,0 +1,17 @@
+worlds:
+    - world
+general:
+    # The time the theif should be stunned upon discovery ( in seconds )
+    stun-time: 5
+    # The chance a theif makes a mistake while robbing, from 0 to 100.
+    chance-of-discovery: 30
+    # The maximal range a thief must be to keep stealing somebody.
+    theft-range: 4
+    # The radius around the thief where another player can detect him.
+    detection-radius: 2
+language:
+    enabled: "Theft have been enabled on the server."
+    disabled: "Theft have been disabled on the server."
+    you-have-been-discovered: "You have been discovered, and the victim stunned you with anger."
+    victim-is-too-far: "The victim is too far from you."
+    thief-spotted: "You feel that something is moving inside your pocket."

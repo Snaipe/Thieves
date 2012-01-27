@@ -1,0 +1,27 @@
+name: Thieves
+author: Snaipe_S
+version: 1.0.0
+
+main: net.minekingdom.snaipe.Thieves.Thieves
+softdepend: [SpoutPlugin]
+
+commands:
+    thieves:
+        description: Basic command
+        usage: /thieves toggle
+
+permissions:
+    thieves.toggle:
+        description: Permission to use /thieves toggle
+    thieves.steal:
+        description: Permission to steal other players
+    thieves.protected:
+        description: Permission to be protected from any thief
+
+    thieves.*:
+        description: Permission to get everything above
+        default: op
+        children:
+            thieves.protected: true
+            thieves.steal: true
+            thieves.toggle: true
