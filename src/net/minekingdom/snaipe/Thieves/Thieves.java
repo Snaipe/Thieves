@@ -336,11 +336,6 @@ public class Thieves extends JavaPlugin implements Listener {
         
         if ( target != null )
         {
-            if (event.getCursor() == null )
-                target.updateInventory();
-            else
-                player.updateInventory();
-            
             int rand = (int)(Math.random()*100) + 1;
 
             if ( rand < Math.abs(detectChance) % 100 )
