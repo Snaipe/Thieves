@@ -9,9 +9,13 @@ general:
     theft-range: 4
     # The radius around the thief where another player can detect him.
     detection-radius: 2
+    # Whenever the player can steal other's hotbars
+    canStealHotBar: true
 language:
     enabled: "Theft have been enabled on the server."
     disabled: "Theft have been disabled on the server."
     you-have-been-discovered: "You have been discovered, and the victim stunned you with anger."
     victim-is-too-far: "The victim is too far from you."
     thief-spotted: "You feel that something is moving inside your pocket."
+    cannot-rob-player: "You cannot rob this player."
+    cannot-steal-hotbar: "You cannot steal items in someone's hotbar"
