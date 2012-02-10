@@ -24,15 +24,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.inventory.InventoryClickEvent;
 import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
-import org.getspout.spoutapi.event.inventory.InventorySlotType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class Thieves extends JavaPlugin {
@@ -53,7 +50,7 @@ public class Thieves extends JavaPlugin {
     private int theftRange;
     private int detectRadius;
     
-    private boolean canStealHotBar;
+    public static boolean canStealHotBar;
 
     public static String enabled;
     public static String disabled;
@@ -62,7 +59,6 @@ public class Thieves extends JavaPlugin {
     public static String victimIsTooFar;
     public static String thiefSpotted;
     public static String cannotRobThisPlayer;
-    public static String cannotStealHotBarItems;
     
     public void onEnable() 
     {
@@ -77,17 +73,9 @@ public class Thieves extends JavaPlugin {
         log(getDescription().getName() + " version " + getDescription().getVersion() + " is enabled!");
     }
     
-    public void onDisable() 
-    {
-    	for ( Player thief : stealingPlayers.keySet() )
-    	{
-    		SpoutPlayer splayer = SpoutManager.getPlayer(thief);
-            splayer.closeActiveWindow();
-    	}
-        stealingPlayers.clear();
-    }
+    public void onDisable() { }
     
-     public static void log(Level level, String msg, Object... arg)
+    public static void log(Level level, String msg, Object... arg)
     {
         logger.log(level, new StringBuilder().append("[Thieves] ").append(MessageFormat.format(msg, arg)).toString());
     }
@@ -139,7 +127,6 @@ public class Thieves extends JavaPlugin {
         victimIsTooFar = config.getString("language.victim-is-too-far", "The victim is too far from you.");
         thiefSpotted = config.getString("language.thief-spotted", "You feel that something is moving inside your pocket.");
         cannotRobThisPlayer = config.getString("language.cannot-rob-player", "You cannot rob this player.");
-        cannotStealHotBarItems = config.getString("language.cannot-steal-hotbar", "You cannot steal items in someone's hotbar");
 
         save();
     }
@@ -258,8 +245,8 @@ public class Thieves extends JavaPlugin {
 	                
 	                if ( player.getLocation().distance(thief.getLocation()) > theftRange )
 	                {
-	                    SpoutPlayer splayer = SpoutManager.getPlayer(thief);
-	                    splayer.closeActiveWindow();
+	                	SpoutPlayer splayer = SpoutManager.getPlayer(thief);
+                        splayer.closeActiveWindow();
 	                }
 	            }
 	            else
@@ -295,9 +282,9 @@ public class Thieves extends JavaPlugin {
 	                MobEffect slow = new MobEffect(MobEffectList.SLOWER_MOVEMENT.getId(), (int)(20 * stunTime), 10);
 	                
 	                ((CraftPlayer)thief).getHandle().addEffect(slow);
-	                
+
 	                SpoutPlayer splayer = SpoutManager.getPlayer(thief);
-	                splayer.closeActiveWindow();
+                    splayer.closeActiveWindow();
 	            }
 	
 	            	
@@ -322,7 +309,6 @@ public class Thieves extends JavaPlugin {
 	                
 	                if ( entity instanceof Player )
 	                {
-	                    SpoutPlayer splayer = SpoutManager.getPlayer(player);
 	                    Player target = (Player) entity;
 	                    
 	                    if ( target.hasPermission("thieves.protected") ) //TODO: thieves.protected
@@ -338,9 +324,10 @@ public class Thieves extends JavaPlugin {
 	                    
 	                    if ( angle > Math.PI / 3 )
 	                    {
-	                    	Inventory inv = (Inventory) target.getInventory();
+	                    	PlayerMainInventory inventory = new PlayerMainInventory(((CraftPlayer)target).getHandle().inventory, ((CraftPlayer)target).getHandle());
 
-	                        splayer.openInventoryWindow(inv);
+		                	((CraftPlayer)player).getHandle().a(inventory);
+	                        
 	                        stealingPlayers.put(player, target);
 	                    }
 	                }
@@ -363,7 +350,7 @@ public class Thieves extends JavaPlugin {
 	                target.sendMessage(ChatColor.RED + Thieves.thiefSpotted);
 	            }
 
-	            if ( !canStealHotBar )
+	            /*if ( !canStealHotBar )
             	{
 		            if ( event.getSlotType().equals(InventorySlotType.QUICKBAR) )
 		            {
@@ -371,7 +358,7 @@ public class Thieves extends JavaPlugin {
 		            	event.setCancelled(true);
 		            	return;
 		            }
-	            }
+	            }*/
 	            
 	            target.updateInventory();
 	        }

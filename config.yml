@@ -18,4 +18,3 @@ language:
     victim-is-too-far: "The victim is too far from you."
     thief-spotted: "You feel that something is moving inside your pocket."
     cannot-rob-player: "You cannot rob this player."
-    cannot-steal-hotbar: "You cannot steal items in someone's hotbar"
