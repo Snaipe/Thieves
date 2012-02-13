@@ -6,13 +6,12 @@ import net.minecraft.server.IInventory;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.PlayerInventory;
 
-public class PlayerMainInventory implements IInventory
+public class ThievesInventory implements IInventory
 {
-    public boolean Offline = false;
     EntityPlayer player;
     private ItemStack[] items = new ItemStack[36];
     
-    public PlayerMainInventory(PlayerInventory inventory, EntityPlayer entityplayer)
+	public ThievesInventory(PlayerInventory inventory, EntityPlayer entityplayer)
     {
         player = entityplayer;
         this.items = inventory.items;
@@ -27,7 +26,7 @@ public class PlayerMainInventory implements IInventory
 
     public int getSize()
     {
-        return Thieves.canStealHotBar ? 36 : 27 ;
+        return Thieves.getInstance().getSettingManager().canStealHotBar() ? 36 : 27 ;
     }
 
     public ItemStack getItem(int i)
