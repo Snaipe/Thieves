@@ -11,37 +11,37 @@ import net.minekingdom.snaipe.Thieves.Thieves;
 import net.minekingdom.snaipe.Thieves.events.ItemStealEvent;
 
 public class InventoryListener implements Listener {
-	
-	private final Thieves plugin;
-	
-	public InventoryListener()
-	{
-		plugin = Thieves.getInstance();
-	}
-	
-	@EventHandler
+    
+    private final Thieves plugin;
+    
+    public InventoryListener()
+    {
+        plugin = Thieves.getInstance();
+    }
+    
+    @EventHandler
     public void onInventoryClick(InventoryClickEvent event)
     {
         if ( event.getPlayer() == null )
-        	return;
+            return;
         
         final ThievesPlayer thief = plugin.getPlayerManager().getPlayer(event.getPlayer());
         
         if ( thief == null )
-        	return;
+            return;
 
         final ThievesPlayer target = plugin.getPlayerManager().getTarget(thief);
         
         if ( target != null )
         {
-        	ItemStealEvent stealEvent = new ItemStealEvent(thief, target, event.getCursor());
-        	plugin.getServer().getPluginManager().callEvent(stealEvent);
-        	
-        	if ( stealEvent.isCancelled() )
-        	{
-        		event.setCancelled(true);
-        		return;
-        	}
+            ItemStealEvent stealEvent = new ItemStealEvent(thief, target, event.getCursor());
+            plugin.getServer().getPluginManager().callEvent(stealEvent);
+            
+            if ( stealEvent.isCancelled() )
+            {
+                event.setCancelled(true);
+                return;
+            }
         }
     }
     
@@ -54,10 +54,10 @@ public class InventoryListener implements Listener {
         final Player player = event.getPlayer();
         if ( player != null )
         {
-        	ThievesPlayer thief = plugin.getPlayerManager().getPlayer(player);
-        	
-        	if ( plugin.getPlayerManager().isThief(thief) )
-        		plugin.getPlayerManager().removeThief(thief);
+            ThievesPlayer thief = plugin.getPlayerManager().getPlayer(player);
+            
+            if ( plugin.getPlayerManager().isThief(thief) )
+                plugin.getPlayerManager().removeThief(thief);
         }
             
     }

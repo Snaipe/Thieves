@@ -11,8 +11,8 @@ import net.minekingdom.snaipe.Thieves.listeners.*;
 
 public class Thieves extends JavaPlugin {
     
-	private static Thieves instance;
-	
+    private static Thieves instance;
+    
     private static Logger logger = Logger.getLogger("Minecraft");
     
     private PlayerListener playerListener;
@@ -27,13 +27,13 @@ public class Thieves extends JavaPlugin {
     
     public static Thieves getInstance()
     {
-    	return instance;
+        return instance;
     }
     
     public void onEnable() 
     {
-    	instance = this;
-    	
+        instance = this;
+        
         settingManager = new SettingManager();
         playerManager = new PlayerManager();
         commandManager = new CommandManager();
@@ -53,7 +53,7 @@ public class Thieves extends JavaPlugin {
     
     public void onDisable() 
     { 
-    	playerManager.saveAllPlayers();
+        playerManager.saveAllPlayers();
     }
     
     public static void log(Level level, String msg, Object... arg)
@@ -68,11 +68,11 @@ public class Thieves extends JavaPlugin {
     
     public SettingManager getSettingManager()
     {
-    	return settingManager;
+        return settingManager;
     }
     
     public PlayerManager getPlayerManager()
     {
-    	return playerManager;
+        return playerManager;
     }
 }

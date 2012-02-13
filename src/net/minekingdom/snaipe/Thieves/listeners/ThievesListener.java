@@ -10,21 +10,21 @@ import net.minekingdom.snaipe.Thieves.ThievesPlayer;
 import net.minekingdom.snaipe.Thieves.events.ItemStealEvent;
 
 public class ThievesListener implements Listener {
-	
-	private final Thieves plugin;
-	
-	public ThievesListener()
-	{
-		plugin = Thieves.getInstance();
-	}
-	
-	@SuppressWarnings("deprecation")
-	@EventHandler
-	public void onItemSteal(ItemStealEvent event)
-	{
-		final ThievesPlayer target = event.getTarget();
-		
-		int rand = (int)(Math.random()*100) + 1;
+    
+    private final Thieves plugin;
+    
+    public ThievesListener()
+    {
+        plugin = Thieves.getInstance();
+    }
+    
+    @SuppressWarnings("deprecation")
+    @EventHandler
+    public void onItemSteal(ItemStealEvent event)
+    {
+        final ThievesPlayer target = event.getTarget();
+        
+        int rand = (int)(Math.random()*100) + 1;
 
         if ( rand < Math.abs(plugin.getSettingManager().getDetectChance()) % 100 )
         {
@@ -32,5 +32,5 @@ public class ThievesListener implements Listener {
         }
         
         target.updateInventory();
-	}
+    }
 }

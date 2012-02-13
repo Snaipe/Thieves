@@ -11,7 +11,7 @@ public class ThievesInventory implements IInventory
     EntityPlayer player;
     private ItemStack[] items = new ItemStack[36];
     
-	public ThievesInventory(PlayerInventory inventory, EntityPlayer entityplayer)
+    public ThievesInventory(PlayerInventory inventory, EntityPlayer entityplayer)
     {
         player = entityplayer;
         this.items = inventory.items;
@@ -144,9 +144,9 @@ public class ThievesInventory implements IInventory
     }
     
     public void g() 
-	{
-		
-	}
+    {
+        
+    }
 
     public void update()
     {

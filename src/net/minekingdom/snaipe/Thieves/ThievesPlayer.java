@@ -44,41 +44,41 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class ThievesPlayer implements Player {
-	
-	private Player player;
-	private HashMap<World, Integer> thiefLevels = new HashMap<World, Integer>();
-	
-	public ThievesPlayer(Player player)
-	{
-		this.player = player;
-	}
-	
-	public ThievesPlayer(Player player, HashMap<World, Integer> thiefLevels) 
-	{
-		this.player = player;
-		this.thiefLevels = thiefLevels;
-	}
+    
+    private Player player;
+    private HashMap<World, Integer> thiefLevels = new HashMap<World, Integer>();
+    
+    public ThievesPlayer(Player player)
+    {
+        this.player = player;
+    }
+    
+    public ThievesPlayer(Player player, HashMap<World, Integer> thiefLevels) 
+    {
+        this.player = player;
+        this.thiefLevels = thiefLevels;
+    }
 
-	public int getThiefLevel(World world)
-	{
-		return thiefLevels.get(world);
-	}
-	
-	public void incrementThiefLevel(World world)
-	{
-		thiefLevels.put(world, thiefLevels.get(world) + 1);
-	}
-	
-	public void startStealing(ThievesPlayer target)
-	{
+    public int getThiefLevel(World world)
+    {
+        return thiefLevels.get(world);
+    }
+    
+    public void incrementThiefLevel(World world)
+    {
+        thiefLevels.put(world, thiefLevels.get(world) + 1);
+    }
+    
+    public void startStealing(ThievesPlayer target)
+    {
         ThievesInventory inventory = new ThievesInventory(((CraftPlayer)target.getPlayer()).getHandle().inventory, ((CraftPlayer)target.getPlayer()).getHandle());
 
         ((CraftPlayer)player).getHandle().a(inventory);
-	}
-	
-	public boolean canSeePlayer(Player target)
-	{
-		Vector vector = getEyeLocation().getDirection();
+    }
+    
+    public boolean canSeePlayer(Player target)
+    {
+        Vector vector = getEyeLocation().getDirection();
         
         Vector difference = new Vector(target.getLocation().getX() - getLocation().getX(), 0, target.getLocation().getZ() - getLocation().getZ());
         float angle = difference.angle(vector);
@@ -87,905 +87,905 @@ public class ThievesPlayer implements Player {
             return true;
         
         return false;
-	}
-	
-	public boolean isTargetWithinRange(Player target)
-	{
-		return target.getLocation().distance(getLocation()) < Thieves.getInstance().getSettingManager().getTheftRange();
-	}
-	
-	public void closeWindow()
-	{
-		SpoutPlayer splayer = SpoutManager.getPlayer(player);
+    }
+    
+    public boolean isTargetWithinRange(Player target)
+    {
+        return target.getLocation().distance(getLocation()) < Thieves.getInstance().getSettingManager().getTheftRange();
+    }
+    
+    public void closeWindow()
+    {
+        SpoutPlayer splayer = SpoutManager.getPlayer(player);
         splayer.closeActiveWindow();
-	}
-	
-	public void stun(int seconds)
-	{
-		MobEffect slow = new MobEffect(MobEffectList.SLOWER_MOVEMENT.getId(), (int)(20 * seconds), 10);
+    }
+    
+    public void stun(int seconds)
+    {
+        MobEffect slow = new MobEffect(MobEffectList.SLOWER_MOVEMENT.getId(), (int)(20 * seconds), 10);
         
         ((CraftPlayer)player).getHandle().addEffect(slow);
-	}
+    }
 
-	@Override
-	public GameMode getGameMode() 
+    @Override
+    public GameMode getGameMode() 
     {
-		return player.getGameMode();
-	}
+        return player.getGameMode();
+    }
 
-	@Override
-	public PlayerInventory getInventory() 
+    @Override
+    public PlayerInventory getInventory() 
     {
-		return player.getInventory();
-	}
+        return player.getInventory();
+    }
 
-	@Override
-	public ItemStack getItemInHand() 
+    @Override
+    public ItemStack getItemInHand() 
     {
-		return player.getItemInHand();
-	}
+        return player.getItemInHand();
+    }
 
-	@Override
-	public String getName() 
+    @Override
+    public String getName() 
     {
-		return player.getName();
-	}
+        return player.getName();
+    }
 
-	@Override
-	public int getSleepTicks() 
+    @Override
+    public int getSleepTicks() 
     {
-		return player.getSleepTicks();
-	}
+        return player.getSleepTicks();
+    }
 
-	@Override
-	public boolean isSleeping() 
+    @Override
+    public boolean isSleeping() 
     {
-		return player.isSleeping();
-	}
+        return player.isSleeping();
+    }
 
-	@Override
-	public void setGameMode(GameMode arg0) 
+    @Override
+    public void setGameMode(GameMode arg0) 
     {
-		player.setGameMode(arg0);
-	}
+        player.setGameMode(arg0);
+    }
 
-	@Override
-	public void setItemInHand(ItemStack arg0) 
+    @Override
+    public void setItemInHand(ItemStack arg0) 
     {
-		player.setItemInHand(arg0);
-	}
+        player.setItemInHand(arg0);
+    }
 
-	@Override
-	public void damage(int arg0) 
+    @Override
+    public void damage(int arg0) 
     {
-		player.damage(arg0);
-	}
+        player.damage(arg0);
+    }
 
-	@Override
-	public void damage(int arg0, Entity arg1) 
+    @Override
+    public void damage(int arg0, Entity arg1) 
     {
-		player.damage(arg0, arg1);
-	}
+        player.damage(arg0, arg1);
+    }
 
-	@Override
-	public double getEyeHeight() 
+    @Override
+    public double getEyeHeight() 
     {
-		return player.getEyeHeight();
-	}
+        return player.getEyeHeight();
+    }
 
-	@Override
-	public double getEyeHeight(boolean arg0) 
+    @Override
+    public double getEyeHeight(boolean arg0) 
     {
-		return player.getEyeHeight(arg0);
-	}
+        return player.getEyeHeight(arg0);
+    }
 
-	@Override
-	public Location getEyeLocation() 
+    @Override
+    public Location getEyeLocation() 
     {
-		return player.getEyeLocation();
-	}
+        return player.getEyeLocation();
+    }
 
-	@Override
-	public int getHealth() 
+    @Override
+    public int getHealth() 
     {
-		return player.getHealth();
-	}
+        return player.getHealth();
+    }
 
-	@Override
-	public Player getKiller() 
+    @Override
+    public Player getKiller() 
     {
-		return player.getKiller();
-	}
+        return player.getKiller();
+    }
 
-	@Override
-	public int getLastDamage() 
+    @Override
+    public int getLastDamage() 
     {
-		return player.getLastDamage();
-	}
+        return player.getLastDamage();
+    }
 
-	@Override
-	public List<Block> getLastTwoTargetBlocks(HashSet<Byte> arg0, int arg1) 
+    @Override
+    public List<Block> getLastTwoTargetBlocks(HashSet<Byte> arg0, int arg1) 
     {
-		return player.getLastTwoTargetBlocks(arg0, arg1);
-	}
+        return player.getLastTwoTargetBlocks(arg0, arg1);
+    }
 
-	@Override
-	public List<Block> getLineOfSight(HashSet<Byte> arg0, int arg1) 
+    @Override
+    public List<Block> getLineOfSight(HashSet<Byte> arg0, int arg1) 
     {
-		return player.getLineOfSight(arg0, arg1);
-	}
+        return player.getLineOfSight(arg0, arg1);
+    }
 
-	@Override
-	public int getMaxHealth() 
+    @Override
+    public int getMaxHealth() 
     {
-		return player.getMaxHealth();
-	}
+        return player.getMaxHealth();
+    }
 
-	@Override
-	public int getMaximumAir() 
+    @Override
+    public int getMaximumAir() 
     {
-		return player.getMaximumAir();
-	}
+        return player.getMaximumAir();
+    }
 
-	@Override
-	public int getMaximumNoDamageTicks() 
+    @Override
+    public int getMaximumNoDamageTicks() 
     {
-		return player.getMaximumNoDamageTicks();
-	}
+        return player.getMaximumNoDamageTicks();
+    }
 
-	@Override
-	public int getNoDamageTicks() 
+    @Override
+    public int getNoDamageTicks() 
     {
-		return player.getNoDamageTicks();
-	}
+        return player.getNoDamageTicks();
+    }
 
-	@Override
-	public int getRemainingAir() 
+    @Override
+    public int getRemainingAir() 
     {
-		return player.getRemainingAir();
-	}
+        return player.getRemainingAir();
+    }
 
-	@Override
-	public Block getTargetBlock(HashSet<Byte> arg0, int arg1) 
+    @Override
+    public Block getTargetBlock(HashSet<Byte> arg0, int arg1) 
     {
-		return player.getTargetBlock(arg0, arg1);
-	}
+        return player.getTargetBlock(arg0, arg1);
+    }
 
-	@Override
-	public Vehicle getVehicle() 
+    @Override
+    public Vehicle getVehicle() 
     {
-		return player.getVehicle();
-	}
+        return player.getVehicle();
+    }
 
-	@Override
-	public boolean isInsideVehicle() 
+    @Override
+    public boolean isInsideVehicle() 
     {
-		return player.isInsideVehicle();
-	}
+        return player.isInsideVehicle();
+    }
 
-	@Override
-	public boolean leaveVehicle() 
+    @Override
+    public boolean leaveVehicle() 
     {
-		return player.leaveVehicle();
-	}
+        return player.leaveVehicle();
+    }
 
-	@Override
-	public void setHealth(int arg0) 
+    @Override
+    public void setHealth(int arg0) 
     {
-		player.setHealth(arg0);
-	}
+        player.setHealth(arg0);
+    }
 
-	@Override
-	public void setLastDamage(int arg0) 
+    @Override
+    public void setLastDamage(int arg0) 
     {
-		player.setLastDamage(arg0);
-	}
+        player.setLastDamage(arg0);
+    }
 
-	@Override
-	public void setMaximumAir(int arg0) 
+    @Override
+    public void setMaximumAir(int arg0) 
     {
-		player.setMaximumAir(arg0);
-	}
+        player.setMaximumAir(arg0);
+    }
 
-	@Override
-	public void setMaximumNoDamageTicks(int arg0) 
+    @Override
+    public void setMaximumNoDamageTicks(int arg0) 
     {
-		player.setMaximumNoDamageTicks(arg0);
-	}
+        player.setMaximumNoDamageTicks(arg0);
+    }
 
-	@Override
-	public void setNoDamageTicks(int arg0) 
+    @Override
+    public void setNoDamageTicks(int arg0) 
     {
-		player.setNoDamageTicks(arg0);
-	}
+        player.setNoDamageTicks(arg0);
+    }
 
-	@Override
-	public void setRemainingAir(int arg0) 
+    @Override
+    public void setRemainingAir(int arg0) 
     {
-		player.setRemainingAir(arg0);
-	}
+        player.setRemainingAir(arg0);
+    }
 
-	@Override
-	public Arrow shootArrow() 
+    @Override
+    public Arrow shootArrow() 
     {
-		return player.shootArrow();
-	}
+        return player.shootArrow();
+    }
 
-	@Override
-	public Egg throwEgg() 
+    @Override
+    public Egg throwEgg() 
     {
-		return player.throwEgg();
-	}
+        return player.throwEgg();
+    }
 
-	@Override
-	public Snowball throwSnowball() 
+    @Override
+    public Snowball throwSnowball() 
     {
-		return player.throwSnowball();
-	}
+        return player.throwSnowball();
+    }
 
-	@Override
-	public boolean eject() 
+    @Override
+    public boolean eject() 
     {
-		return player.eject();
-	}
+        return player.eject();
+    }
 
-	@Override
-	public int getEntityId() 
+    @Override
+    public int getEntityId() 
     {
-		return player.getEntityId();
-	}
+        return player.getEntityId();
+    }
 
-	@Override
-	public float getFallDistance() 
+    @Override
+    public float getFallDistance() 
     {
-		return player.getFallDistance();
-	}
+        return player.getFallDistance();
+    }
 
-	@Override
-	public int getFireTicks() 
+    @Override
+    public int getFireTicks() 
     {
-		return player.getFireTicks();
-	}
+        return player.getFireTicks();
+    }
 
-	@Override
-	public EntityDamageEvent getLastDamageCause() 
+    @Override
+    public EntityDamageEvent getLastDamageCause() 
     {
-		return player.getLastDamageCause();
-	}
+        return player.getLastDamageCause();
+    }
 
-	@Override
-	public Location getLocation() 
+    @Override
+    public Location getLocation() 
     {
-		return player.getLocation();
-	}
+        return player.getLocation();
+    }
 
-	@Override
-	public int getMaxFireTicks() 
+    @Override
+    public int getMaxFireTicks() 
     {
-		return player.getMaxFireTicks();
-	}
+        return player.getMaxFireTicks();
+    }
 
-	@Override
-	public List<Entity> getNearbyEntities(double arg0, double arg1, double arg2) 
+    @Override
+    public List<Entity> getNearbyEntities(double arg0, double arg1, double arg2) 
     {
-		return player.getNearbyEntities(arg0, arg1, arg2);
-	}
+        return player.getNearbyEntities(arg0, arg1, arg2);
+    }
 
-	@Override
-	public Entity getPassenger() 
+    @Override
+    public Entity getPassenger() 
     {
-		return player.getPassenger();
-	}
+        return player.getPassenger();
+    }
 
-	@Override
-	public Server getServer() 
+    @Override
+    public Server getServer() 
     {
-		return player.getServer();
-	}
+        return player.getServer();
+    }
 
-	@Override
-	public int getTicksLived() 
+    @Override
+    public int getTicksLived() 
     {
-		return player.getTicksLived();
-	}
+        return player.getTicksLived();
+    }
 
-	@Override
-	public UUID getUniqueId() 
+    @Override
+    public UUID getUniqueId() 
     {
-		return player.getUniqueId();
-	}
+        return player.getUniqueId();
+    }
 
-	@Override
-	public Vector getVelocity() 
+    @Override
+    public Vector getVelocity() 
     {
-		return player.getVelocity();
-	}
+        return player.getVelocity();
+    }
 
-	@Override
-	public World getWorld() 
+    @Override
+    public World getWorld() 
     {
-		return player.getWorld();
-	}
+        return player.getWorld();
+    }
 
-	@Override
-	public boolean isDead() 
+    @Override
+    public boolean isDead() 
     {
-		return player.isDead();
-	}
+        return player.isDead();
+    }
 
-	@Override
-	public boolean isEmpty() 
+    @Override
+    public boolean isEmpty() 
     {
-		return player.isEmpty();
-	}
+        return player.isEmpty();
+    }
 
-	@Override
-	public void playEffect(EntityEffect arg0) 
+    @Override
+    public void playEffect(EntityEffect arg0) 
     {
-		player.playEffect(arg0);
-	}
+        player.playEffect(arg0);
+    }
 
-	@Override
-	public void remove() 
+    @Override
+    public void remove() 
     {
-		player.remove();
-	}
+        player.remove();
+    }
 
-	@Override
-	public void setFallDistance(float arg0) 
+    @Override
+    public void setFallDistance(float arg0) 
     {
-		player.setFallDistance(arg0);
-	}
+        player.setFallDistance(arg0);
+    }
 
-	@Override
-	public void setFireTicks(int arg0) 
+    @Override
+    public void setFireTicks(int arg0) 
     {
-		player.setFireTicks(arg0);
-	}
+        player.setFireTicks(arg0);
+    }
 
-	@Override
-	public void setLastDamageCause(EntityDamageEvent arg0) 
+    @Override
+    public void setLastDamageCause(EntityDamageEvent arg0) 
     {
-		player.setLastDamageCause(arg0);
-	}
+        player.setLastDamageCause(arg0);
+    }
 
-	@Override
-	public boolean setPassenger(Entity arg0) 
+    @Override
+    public boolean setPassenger(Entity arg0) 
     {
-		return player.setPassenger(arg0);
-	}
+        return player.setPassenger(arg0);
+    }
 
-	@Override
-	public void setTicksLived(int arg0) 
+    @Override
+    public void setTicksLived(int arg0) 
     {
-		player.setTicksLived(arg0);
-	}
+        player.setTicksLived(arg0);
+    }
 
-	@Override
-	public void setVelocity(Vector arg0) 
+    @Override
+    public void setVelocity(Vector arg0) 
     {
-		player.setVelocity(arg0);
-	}
+        player.setVelocity(arg0);
+    }
 
-	@Override
-	public boolean teleport(Location arg0) 
+    @Override
+    public boolean teleport(Location arg0) 
     {
-		return player.teleport(arg0);
-	}
+        return player.teleport(arg0);
+    }
 
-	@Override
-	public boolean teleport(Entity arg0) 
+    @Override
+    public boolean teleport(Entity arg0) 
     {
-		return player.teleport(arg0);
-	}
+        return player.teleport(arg0);
+    }
 
-	@Override
-	public boolean teleport(Location arg0, TeleportCause arg1) 
+    @Override
+    public boolean teleport(Location arg0, TeleportCause arg1) 
     {
-		return player.teleport(arg0, arg1);
-	}
+        return player.teleport(arg0, arg1);
+    }
 
-	@Override
-	public boolean teleport(Entity arg0, TeleportCause arg1) 
+    @Override
+    public boolean teleport(Entity arg0, TeleportCause arg1) 
     {
-		return player.teleport(arg0, arg1);
-	}
+        return player.teleport(arg0, arg1);
+    }
 
-	@Override
-	public PermissionAttachment addAttachment(Plugin arg0) 
+    @Override
+    public PermissionAttachment addAttachment(Plugin arg0) 
     {
-		return player.addAttachment(arg0);
-	}
+        return player.addAttachment(arg0);
+    }
 
-	@Override
-	public PermissionAttachment addAttachment(Plugin arg0, int arg1) 
+    @Override
+    public PermissionAttachment addAttachment(Plugin arg0, int arg1) 
     {
-		return player.addAttachment(arg0, arg1);
-	}
+        return player.addAttachment(arg0, arg1);
+    }
 
-	@Override
-	public PermissionAttachment addAttachment(Plugin arg0, String arg1,
-			boolean arg2) 
+    @Override
+    public PermissionAttachment addAttachment(Plugin arg0, String arg1,
+            boolean arg2) 
     {
-		return player.addAttachment(arg0, arg1, arg2);
-	}
+        return player.addAttachment(arg0, arg1, arg2);
+    }
 
-	@Override
-	public PermissionAttachment addAttachment(Plugin arg0, String arg1,
-			boolean arg2, int arg3) 
+    @Override
+    public PermissionAttachment addAttachment(Plugin arg0, String arg1,
+            boolean arg2, int arg3) 
     {
-		return player.addAttachment(arg0, arg1, arg2, arg3);
-	}
+        return player.addAttachment(arg0, arg1, arg2, arg3);
+    }
 
-	@Override
-	public Set<PermissionAttachmentInfo> getEffectivePermissions() 
+    @Override
+    public Set<PermissionAttachmentInfo> getEffectivePermissions() 
     {
-		return player.getEffectivePermissions();
-	}
+        return player.getEffectivePermissions();
+    }
 
-	@Override
-	public boolean hasPermission(String arg0) 
+    @Override
+    public boolean hasPermission(String arg0) 
     {
-		return player.hasPermission(arg0);
-	}
+        return player.hasPermission(arg0);
+    }
 
-	@Override
-	public boolean hasPermission(Permission arg0) 
+    @Override
+    public boolean hasPermission(Permission arg0) 
     {
-		return player.hasPermission(arg0);
-	}
+        return player.hasPermission(arg0);
+    }
 
-	@Override
-	public boolean isPermissionSet(String arg0) 
+    @Override
+    public boolean isPermissionSet(String arg0) 
     {
-		return player.isPermissionSet(arg0);
-	}
+        return player.isPermissionSet(arg0);
+    }
 
-	@Override
-	public boolean isPermissionSet(Permission arg0) 
+    @Override
+    public boolean isPermissionSet(Permission arg0) 
     {
-		return player.isPermissionSet(arg0);
-	}
+        return player.isPermissionSet(arg0);
+    }
 
-	@Override
-	public void recalculatePermissions() 
+    @Override
+    public void recalculatePermissions() 
     {
-		player.recalculatePermissions();
-	}
+        player.recalculatePermissions();
+    }
 
-	@Override
-	public void removeAttachment(PermissionAttachment arg0) 
+    @Override
+    public void removeAttachment(PermissionAttachment arg0) 
     {
-		player.removeAttachment(arg0);
-	}
+        player.removeAttachment(arg0);
+    }
 
-	@Override
-	public boolean isOp() 
+    @Override
+    public boolean isOp() 
     {
-		return player.isOp();
-	}
+        return player.isOp();
+    }
 
-	@Override
-	public void setOp(boolean arg0) 
+    @Override
+    public void setOp(boolean arg0) 
     {
-		player.setOp(arg0);
-	}
+        player.setOp(arg0);
+    }
 
-	@Override
-	public void sendMessage(String arg0) 
+    @Override
+    public void sendMessage(String arg0) 
     {
-		player.sendMessage(arg0);
-	}
+        player.sendMessage(arg0);
+    }
 
-	@Override
-	public long getFirstPlayed() 
+    @Override
+    public long getFirstPlayed() 
     {
-		return player.getFirstPlayed();
-	}
+        return player.getFirstPlayed();
+    }
 
-	@Override
-	public long getLastPlayed() 
+    @Override
+    public long getLastPlayed() 
     {
-		return player.getLastPlayed();
-	}
+        return player.getLastPlayed();
+    }
 
-	@Override
-	public Player getPlayer() 
+    @Override
+    public Player getPlayer() 
     {
-		return player.getPlayer();
-	}
+        return player.getPlayer();
+    }
 
-	@Override
-	public boolean hasPlayedBefore() 
+    @Override
+    public boolean hasPlayedBefore() 
     {
-		return player.hasPlayedBefore();
-	}
+        return player.hasPlayedBefore();
+    }
 
-	@Override
-	public boolean isBanned() 
+    @Override
+    public boolean isBanned() 
     {
-		return player.isBanned();
-	}
+        return player.isBanned();
+    }
 
-	@Override
-	public boolean isOnline() 
+    @Override
+    public boolean isOnline() 
     {
-		return player.isOnline();
-	}
+        return player.isOnline();
+    }
 
-	@Override
-	public boolean isWhitelisted() 
+    @Override
+    public boolean isWhitelisted() 
     {
-		return player.isWhitelisted();
-	}
+        return player.isWhitelisted();
+    }
 
-	@Override
-	public void setBanned(boolean arg0) 
+    @Override
+    public void setBanned(boolean arg0) 
     {
-		player.setBanned(arg0);
-	}
+        player.setBanned(arg0);
+    }
 
-	@Override
-	public void setWhitelisted(boolean arg0) 
+    @Override
+    public void setWhitelisted(boolean arg0) 
     {
-		player.setWhitelisted(arg0);
-	}
+        player.setWhitelisted(arg0);
+    }
 
-	@Override
-	public Map<String, Object> serialize() 
+    @Override
+    public Map<String, Object> serialize() 
     {
-		return player.serialize();
-	}
+        return player.serialize();
+    }
 
-	@Override
-	public Set<String> getListeningPluginChannels() 
+    @Override
+    public Set<String> getListeningPluginChannels() 
     {
-		return player.getListeningPluginChannels();
-	}
+        return player.getListeningPluginChannels();
+    }
 
-	@Override
-	public void sendPluginMessage(Plugin arg0, String arg1, byte[] arg2) 
+    @Override
+    public void sendPluginMessage(Plugin arg0, String arg1, byte[] arg2) 
     {
-		player.sendPluginMessage(arg0, arg1, arg2);
-	}
+        player.sendPluginMessage(arg0, arg1, arg2);
+    }
 
-	@Override
-	public void awardAchievement(Achievement arg0) 
+    @Override
+    public void awardAchievement(Achievement arg0) 
     {
-		player.awardAchievement(arg0);
-	}
+        player.awardAchievement(arg0);
+    }
 
-	@Override
-	public void chat(String arg0) 
+    @Override
+    public void chat(String arg0) 
     {
-		player.chat(arg0);
-	}
+        player.chat(arg0);
+    }
 
-	@Override
-	public InetSocketAddress getAddress() 
+    @Override
+    public InetSocketAddress getAddress() 
     {
-		return player.getAddress();
-	}
+        return player.getAddress();
+    }
 
-	@Override
-	public boolean getAllowFlight() 
+    @Override
+    public boolean getAllowFlight() 
     {
-		return player.getAllowFlight();
-	}
+        return player.getAllowFlight();
+    }
 
-	@Override
-	public Location getBedSpawnLocation() 
+    @Override
+    public Location getBedSpawnLocation() 
     {
-		return player.getBedSpawnLocation();
-	}
+        return player.getBedSpawnLocation();
+    }
 
-	@Override
-	public Location getCompassTarget() 
+    @Override
+    public Location getCompassTarget() 
     {
-		return player.getCompassTarget();
-	}
+        return player.getCompassTarget();
+    }
 
-	@Override
-	public String getDisplayName() 
+    @Override
+    public String getDisplayName() 
     {
-		return player.getDisplayName();
-	}
+        return player.getDisplayName();
+    }
 
-	@Override
-	public float getExhaustion() 
+    @Override
+    public float getExhaustion() 
     {
-		return player.getExhaustion();
-	}
+        return player.getExhaustion();
+    }
 
-	@Override
-	public float getExp() 
+    @Override
+    public float getExp() 
     {
-		return player.getExp();
-	}
+        return player.getExp();
+    }
 
-	@Deprecated
-	@Override
-	public int getExperience() 
+    @Deprecated
+    @Override
+    public int getExperience() 
     {
-		return player.getExperience();
-	}
+        return player.getExperience();
+    }
 
-	@Override
-	public int getFoodLevel() 
+    @Override
+    public int getFoodLevel() 
     {
-		return player.getFoodLevel();
-	}
+        return player.getFoodLevel();
+    }
 
-	@Override
-	public int getLevel() 
+    @Override
+    public int getLevel() 
     {
-		return player.getLevel();
-	}
+        return player.getLevel();
+    }
 
-	@Override
-	public String getPlayerListName() 
+    @Override
+    public String getPlayerListName() 
     {
-		return player.getPlayerListName();
-	}
+        return player.getPlayerListName();
+    }
 
-	@Override
-	public long getPlayerTime() 
+    @Override
+    public long getPlayerTime() 
     {
-		return player.getPlayerTime();
-	}
+        return player.getPlayerTime();
+    }
 
-	@Override
-	public long getPlayerTimeOffset() 
+    @Override
+    public long getPlayerTimeOffset() 
     {
-		return player.getPlayerTimeOffset();
-	}
+        return player.getPlayerTimeOffset();
+    }
 
-	@Override
-	public float getSaturation() 
+    @Override
+    public float getSaturation() 
     {
-		return player.getSaturation();
-	}
+        return player.getSaturation();
+    }
 
-	@Override
-	public int getTotalExperience() 
+    @Override
+    public int getTotalExperience() 
     {
-		return player.getTotalExperience();
-	}
+        return player.getTotalExperience();
+    }
 
-	@Override
-	public void giveExp(int arg0) 
+    @Override
+    public void giveExp(int arg0) 
     {
-		player.giveExp(arg0);
-	}
+        player.giveExp(arg0);
+    }
 
-	@Override
-	public void incrementStatistic(Statistic arg0) 
+    @Override
+    public void incrementStatistic(Statistic arg0) 
     {
-		player.incrementStatistic(arg0);
-	}
+        player.incrementStatistic(arg0);
+    }
 
-	@Override
-	public void incrementStatistic(Statistic arg0, int arg1) 
+    @Override
+    public void incrementStatistic(Statistic arg0, int arg1) 
     {
-		player.incrementStatistic(arg0, arg1);
-	}
+        player.incrementStatistic(arg0, arg1);
+    }
 
-	@Override
-	public void incrementStatistic(Statistic arg0, Material arg1) 
+    @Override
+    public void incrementStatistic(Statistic arg0, Material arg1) 
     {
-		player.incrementStatistic(arg0, arg1);
-	}
+        player.incrementStatistic(arg0, arg1);
+    }
 
-	@Override
-	public void incrementStatistic(Statistic arg0, Material arg1, int arg2) 
+    @Override
+    public void incrementStatistic(Statistic arg0, Material arg1, int arg2) 
     {
-		player.incrementStatistic(arg0, arg1, arg2);
-	}
+        player.incrementStatistic(arg0, arg1, arg2);
+    }
 
-	@Override
-	public boolean isPlayerTimeRelative() 
+    @Override
+    public boolean isPlayerTimeRelative() 
     {
-		return player.isPlayerTimeRelative();
-	}
+        return player.isPlayerTimeRelative();
+    }
 
-	@Override
-	public boolean isSleepingIgnored() 
+    @Override
+    public boolean isSleepingIgnored() 
     {
-		return player.isSleepingIgnored();
-	}
+        return player.isSleepingIgnored();
+    }
 
-	@Override
-	public boolean isSneaking() 
+    @Override
+    public boolean isSneaking() 
     {
-		return player.isSneaking();
-	}
+        return player.isSneaking();
+    }
 
-	@Override
-	public boolean isSprinting() 
+    @Override
+    public boolean isSprinting() 
     {
-		return player.isSprinting();
-	}
+        return player.isSprinting();
+    }
 
-	@Override
-	public void kickPlayer(String arg0) 
+    @Override
+    public void kickPlayer(String arg0) 
     {
-		player.kickPlayer(arg0);
-	}
+        player.kickPlayer(arg0);
+    }
 
-	@Override
-	public void loadData() 
+    @Override
+    public void loadData() 
     {
-		player.loadData();
-	}
+        player.loadData();
+    }
 
-	@Override
-	public boolean performCommand(String arg0) 
+    @Override
+    public boolean performCommand(String arg0) 
     {
-		return player.performCommand(arg0);
-	}
+        return player.performCommand(arg0);
+    }
 
-	@Override
-	public void playEffect(Location arg0, Effect arg1, int arg2) 
+    @Override
+    public void playEffect(Location arg0, Effect arg1, int arg2) 
     {
-		player.playEffect(arg0, arg1, arg2);
-	}
+        player.playEffect(arg0, arg1, arg2);
+    }
 
-	@Override
-	public void playNote(Location arg0, byte arg1, byte arg2) 
+    @Override
+    public void playNote(Location arg0, byte arg1, byte arg2) 
     {
-		player.playNote(arg0, arg1, arg2);
-	}
+        player.playNote(arg0, arg1, arg2);
+    }
 
-	@Override
-	public void playNote(Location arg0, Instrument arg1, Note arg2) 
+    @Override
+    public void playNote(Location arg0, Instrument arg1, Note arg2) 
     {
-		player.playNote(arg0, arg1, arg2);
-	}
+        player.playNote(arg0, arg1, arg2);
+    }
 
-	@Override
-	public void resetPlayerTime() 
+    @Override
+    public void resetPlayerTime() 
     {
-		player.resetPlayerTime();
-	}
+        player.resetPlayerTime();
+    }
 
-	@Override
-	public void saveData() 
+    @Override
+    public void saveData() 
     {
-		player.saveData();
-	}
+        player.saveData();
+    }
 
-	@Override
-	public void sendBlockChange(Location arg0, Material arg1, byte arg2) 
+    @Override
+    public void sendBlockChange(Location arg0, Material arg1, byte arg2) 
     {
-		player.sendBlockChange(arg0, arg1, arg2);
-	}
+        player.sendBlockChange(arg0, arg1, arg2);
+    }
 
-	@Override
-	public void sendBlockChange(Location arg0, int arg1, byte arg2) 
+    @Override
+    public void sendBlockChange(Location arg0, int arg1, byte arg2) 
     {
-		player.sendBlockChange(arg0, arg1, arg2);
-	}
+        player.sendBlockChange(arg0, arg1, arg2);
+    }
 
-	@Override
-	public boolean sendChunkChange(Location arg0, int arg1, int arg2, int arg3,
-			byte[] arg4) 
+    @Override
+    public boolean sendChunkChange(Location arg0, int arg1, int arg2, int arg3,
+            byte[] arg4) 
     {
-		return player.sendChunkChange(arg0, arg1, arg2, arg3, arg4);
-	}
+        return player.sendChunkChange(arg0, arg1, arg2, arg3, arg4);
+    }
 
-	@Override
-	public void sendMap(MapView arg0) 
+    @Override
+    public void sendMap(MapView arg0) 
     {
-		player.sendMap(arg0);
-	}
+        player.sendMap(arg0);
+    }
 
-	@Override
-	public void sendRawMessage(String arg0) 
+    @Override
+    public void sendRawMessage(String arg0) 
     {
-		player.sendRawMessage(arg0);
-	}
+        player.sendRawMessage(arg0);
+    }
 
-	@Override
-	public void setAllowFlight(boolean arg0) 
+    @Override
+    public void setAllowFlight(boolean arg0) 
     {
-		player.setAllowFlight(arg0);
-	}
+        player.setAllowFlight(arg0);
+    }
 
-	@Override
-	public void setBedSpawnLocation(Location arg0) 
+    @Override
+    public void setBedSpawnLocation(Location arg0) 
     {
-		player.setBedSpawnLocation(arg0);
-	}
+        player.setBedSpawnLocation(arg0);
+    }
 
-	@Override
-	public void setCompassTarget(Location arg0) 
+    @Override
+    public void setCompassTarget(Location arg0) 
     {
-		player.setCompassTarget(arg0);
-	}
+        player.setCompassTarget(arg0);
+    }
 
-	@Override
-	public void setDisplayName(String arg0) 
+    @Override
+    public void setDisplayName(String arg0) 
     {
-		player.setDisplayName(arg0);
-	}
+        player.setDisplayName(arg0);
+    }
 
-	@Override
-	public void setExhaustion(float arg0) 
+    @Override
+    public void setExhaustion(float arg0) 
     {
-		player.setExhaustion(arg0);
-	}
+        player.setExhaustion(arg0);
+    }
 
-	@Override
-	public void setExp(float arg0) 
+    @Override
+    public void setExp(float arg0) 
     {
-		player.setExp(arg0);
-	}
+        player.setExp(arg0);
+    }
 
-	@Deprecated
-	@Override
-	public void setExperience(int arg0) 
+    @Deprecated
+    @Override
+    public void setExperience(int arg0) 
     {
-		player.setExperience(arg0);
-	}
+        player.setExperience(arg0);
+    }
 
-	@Override
-	public void setFoodLevel(int arg0) 
+    @Override
+    public void setFoodLevel(int arg0) 
     {
-		player.setFoodLevel(arg0);
-	}
+        player.setFoodLevel(arg0);
+    }
 
-	@Override
-	public void setLevel(int arg0) 
+    @Override
+    public void setLevel(int arg0) 
     {
-		player.setLevel(arg0);
-	}
+        player.setLevel(arg0);
+    }
 
-	@Override
-	public void setPlayerListName(String arg0) 
+    @Override
+    public void setPlayerListName(String arg0) 
     {
-		player.setPlayerListName(arg0);
-	}
+        player.setPlayerListName(arg0);
+    }
 
-	@Override
-	public void setPlayerTime(long arg0, boolean arg1) 
+    @Override
+    public void setPlayerTime(long arg0, boolean arg1) 
     {
-		player.setPlayerTime(arg0, arg1);
-	}
+        player.setPlayerTime(arg0, arg1);
+    }
 
-	@Override
-	public void setSaturation(float arg0) 
+    @Override
+    public void setSaturation(float arg0) 
     {
-		player.setSaturation(arg0);
-	}
+        player.setSaturation(arg0);
+    }
 
-	@Override
-	public void setSleepingIgnored(boolean arg0) 
+    @Override
+    public void setSleepingIgnored(boolean arg0) 
     {
-		player.setSleepingIgnored(arg0);
-	}
+        player.setSleepingIgnored(arg0);
+    }
 
-	@Override
-	public void setSneaking(boolean arg0) 
+    @Override
+    public void setSneaking(boolean arg0) 
     {
-		player.setSneaking(arg0);
-	}
+        player.setSneaking(arg0);
+    }
 
-	@Override
-	public void setSprinting(boolean arg0) 
+    @Override
+    public void setSprinting(boolean arg0) 
     {
-		player.setSprinting(arg0);
-	}
+        player.setSprinting(arg0);
+    }
 
-	@Override
-	public void setTotalExperience(int arg0) 
+    @Override
+    public void setTotalExperience(int arg0) 
     {
-		player.setTotalExperience(arg0);
-	}
+        player.setTotalExperience(arg0);
+    }
 
-	@Deprecated
-	@Override
-	public void updateInventory() 
+    @Deprecated
+    @Override
+    public void updateInventory() 
     {
-		player.updateInventory();
-	}
+        player.updateInventory();
+    }
 }
