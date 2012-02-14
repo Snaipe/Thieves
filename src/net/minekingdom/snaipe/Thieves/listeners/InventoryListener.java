@@ -1,11 +1,14 @@
 package net.minekingdom.snaipe.Thieves.listeners;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.getspout.spoutapi.event.inventory.InventoryClickEvent;
 import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
 
+import net.minekingdom.snaipe.Thieves.ItemValues;
+import net.minekingdom.snaipe.Thieves.Language;
 import net.minekingdom.snaipe.Thieves.ThievesPlayer;
 import net.minekingdom.snaipe.Thieves.Thieves;
 import net.minekingdom.snaipe.Thieves.events.ItemStealEvent;
@@ -19,9 +22,13 @@ public class InventoryListener implements Listener {
         plugin = Thieves.getInstance();
     }
     
-    @EventHandler
+    @SuppressWarnings("deprecation")
+	@EventHandler
     public void onInventoryClick(InventoryClickEvent event)
     {
+    	if ( event.isCancelled() || event.getItem() == null )
+    		return;
+    	
         if ( event.getPlayer() == null )
             return;
         
@@ -42,7 +49,20 @@ public class InventoryListener implements Listener {
                 event.setCancelled(true);
                 return;
             }
+            else
+            {
+                int rand = (int)(Math.random()*100) + 1;
+
+                if ( rand < 1 - ItemValues.valueOf(event.getItem().getType()) / ( thief.getThiefLevel(thief.getWorld()) + 9 ) )
+                {
+                    target.sendMessage(ChatColor.RED + Language.thiefSpotted);
+                    event.setCancelled(true);
+                    return;
+                }
+            }
         }
+        
+        target.updateInventory();
     }
     
     @EventHandler

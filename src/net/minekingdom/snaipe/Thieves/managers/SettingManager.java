@@ -13,6 +13,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import net.minekingdom.snaipe.Thieves.ItemValues;
 import net.minekingdom.snaipe.Thieves.Language;
 import net.minekingdom.snaipe.Thieves.Thieves;
 import net.minekingdom.snaipe.Thieves.ThievesPlayer;
@@ -87,6 +88,7 @@ public class SettingManager {
         canStealInNonPvPArea = config.getBoolean("general.can-steal-in-non-pvp-area", false);
         
         Language.init(config);
+        ItemValues.init();
     
         save();
     }

@@ -5,6 +5,7 @@ import java.util.List;
 import net.minekingdom.snaipe.Thieves.Language;
 import net.minekingdom.snaipe.Thieves.ThievesPlayer;
 import net.minekingdom.snaipe.Thieves.Thieves;
+import net.minekingdom.snaipe.Thieves.events.PlayerStealEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
@@ -100,18 +101,6 @@ public class PlayerListener implements Listener {
         if (entity == null)
             return;
         
-        if ( !plugin.getSettingManager().canStealInNonPvPArea() )
-        {
-            EntityDamageByEntityEvent damageEvent = new EntityDamageByEntityEvent(thief.getPlayer(), entity, DamageCause.ENTITY_ATTACK, 1);
-            plugin.getServer().getPluginManager().callEvent(damageEvent);
-            
-            if (damageEvent.isCancelled())
-            {
-                thief.sendMessage(ChatColor.RED + Language.youCannotStealInNonPvPArea);
-                return;
-            }
-        }
-        
         if ( plugin.getSettingManager().isActiveWorld(thief.getWorld()) )
         {
             if ( Thieves.isTheftEnabled && thief.hasPermission("thieves.steal") ) //TODO: thieves.steal
@@ -131,6 +120,24 @@ public class PlayerListener implements Listener {
                     
                     if ( !target.canSeePlayer(thief) )
                     {
+                    	if ( !plugin.getSettingManager().canStealInNonPvPArea() )
+                        {
+                            EntityDamageByEntityEvent damageEvent = new EntityDamageByEntityEvent(thief.getPlayer(), entity, DamageCause.ENTITY_ATTACK, 1);
+                            plugin.getServer().getPluginManager().callEvent(damageEvent);
+                            
+                            if (damageEvent.isCancelled())
+                            {
+                                thief.sendMessage(ChatColor.RED + Language.youCannotStealInNonPvPArea);
+                                return;
+                            }
+                        }
+                    	
+                    	PlayerStealEvent stealEvent = new PlayerStealEvent(thief, target);
+                    	plugin.getServer().getPluginManager().callEvent(stealEvent);
+                    	
+                    	if ( stealEvent.isCancelled() )
+                    		return;
+                    	
                         thief.startStealing(target);
                         plugin.getPlayerManager().addThief(thief, target);
                     }

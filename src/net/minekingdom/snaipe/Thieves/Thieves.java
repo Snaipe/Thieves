@@ -1,5 +1,9 @@
 package net.minekingdom.snaipe.Thieves;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +21,7 @@ public class Thieves extends JavaPlugin {
     
     private PlayerListener playerListener;
     private InventoryListener inventoryListener;
-    private ThievesListener thievesListener;
-    
+
     private SettingManager settingManager;
     private PlayerManager playerManager;
     private CommandManager commandManager;
@@ -40,11 +43,9 @@ public class Thieves extends JavaPlugin {
     
         playerListener = new PlayerListener();
         inventoryListener = new InventoryListener();
-        thievesListener = new ThievesListener();
 
         getServer().getPluginManager().registerEvents(inventoryListener, this);
         getServer().getPluginManager().registerEvents(playerListener, this);
-        getServer().getPluginManager().registerEvents(thievesListener, this);
 
         getCommand("thieves").setExecutor(commandManager);
         
@@ -64,6 +65,36 @@ public class Thieves extends JavaPlugin {
     public static void log(String msg, Object... arg)
     {
         log(Level.INFO, msg, arg);
+    }
+    
+    public static void warn(String msg, Object... arg) 
+    {
+    	log(Level.WARNING, msg, arg);
+	}
+    
+    public static boolean writeRessource(String inputPath, String outputPath)
+    {
+    	try
+    	{
+	    	InputStream stream = Thieves.class.getResourceAsStream(inputPath);
+			OutputStream out = new FileOutputStream(outputPath);
+	
+			byte[] buf = new byte[1024];
+			int len;
+			while ((len = stream.read(buf)) > 0) 
+			{
+				out.write(buf, 0, len);
+			}
+			stream.close();
+			out.close();
+			
+			return true;
+    	}
+    	catch (IOException ioe) 
+        {
+			warn("Could not write ressource from " + inputPath + " at " + outputPath);
+			return false;
+		} 
     }
     
     public SettingManager getSettingManager()
