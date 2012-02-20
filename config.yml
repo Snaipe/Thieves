@@ -3,8 +3,6 @@ worlds:
 general:
     # The time the theif should be stunned upon discovery ( in seconds )
     stun-time: 5
-    # The chance a theif makes a mistake while robbing, from 0 to 100.
-    chance-of-discovery: 30
     # The maximal range a thief must be to keep stealing somebody.
     theft-range: 4
     # The radius around the thief where another player can detect him.

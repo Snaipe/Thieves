@@ -31,7 +31,6 @@ public class SettingManager {
     private boolean canStealInNonPvPArea;
     private boolean permissionLevels;
     
-    private int detectChance;
     private int detectRadius;
     private int stunTime;
     private int theftRange;
@@ -76,7 +75,6 @@ public class SettingManager {
         }
         
         stunTime = config.getInt("general.stun-time", 5);
-        detectChance = config.getInt("general.chance-of-discovery", 30);
         theftRange = config.getInt("general.theft-range", 4);
         detectRadius = config.getInt("general.detection-radius", 4);
         canStealHotBar = config.getBoolean("general.can-steal-in-hotbar", true);
@@ -241,11 +239,6 @@ public class SettingManager {
         return canStealHotBar;
     }
 
-    public int getDetectChance() 
-    {
-        return detectChance;
-    }
-    
     public int getDetectRadius()
     {
         return detectRadius;
