@@ -90,6 +90,8 @@ public class InventoryListener implements Listener {
             }
             else
             {
+            	thief.addItemToWealth(item);
+            	
                 if ( !stealEvent.isSuccessful() )
                 {
                     target.sendMessage(ChatColor.RED + Language.thiefSpotted);
@@ -106,8 +108,6 @@ public class InventoryListener implements Listener {
                     thief.sendMessage(ChatColor.RED + Language.levelUp);
                     thief.incrementThiefLevel();
                 }
-                
-                thief.addItemToWealth(item);
                 
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
