@@ -7,21 +7,21 @@ import org.bukkit.event.HandlerList;
 
 @SuppressWarnings("serial")
 public class ThiefDetectEvent extends Event {
-	
-	private static final HandlerList handlers = new HandlerList();
-	
-	private ThievesPlayer thief;
+    
+    private static final HandlerList handlers = new HandlerList();
+    
+    private ThievesPlayer thief;
     private ThievesPlayer target;
     private ThievesPlayer detector;
     
     public ThiefDetectEvent(ThievesPlayer thief, ThievesPlayer target, ThievesPlayer detector)
     {
-    	this.thief = thief;
-    	this.target = target;
-    	this.detector = detector;
+        this.thief = thief;
+        this.target = target;
+        this.detector = detector;
     }
 
-	public HandlerList getHandlers() {
+    public HandlerList getHandlers() {
         return handlers;
     }
      

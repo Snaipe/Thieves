@@ -23,10 +23,10 @@ public class ItemValues {
     
     public static void load()
     {
-    	if ( !itemLevels.isEmpty())
-    		itemLevels.clear();
-    	
-    	File itemConfigFile = new File(plugin.getDataFolder() + File.separator + "items.yml");
+        if ( !itemLevels.isEmpty())
+            itemLevels.clear();
+        
+        File itemConfigFile = new File(plugin.getDataFolder() + File.separator + "items.yml");
         
         YamlConfiguration itemConfig = new YamlConfiguration();
         
@@ -57,16 +57,16 @@ public class ItemValues {
         
         if (exists)
         {
-        	for ( String itemName : itemConfig.getConfigurationSection("items").getKeys(false) )
-        	{
-        		if ( Material.matchMaterial(itemName) == null )
-        			continue;
-        		
-        		Integer level = itemConfig.getInt("items." + itemName);
-        		
-        		if ( level != null)
-        			itemLevels.put(Material.matchMaterial(itemName), level);
-        	}
+            for ( String itemName : itemConfig.getConfigurationSection("items").getKeys(false) )
+            {
+                if ( Material.matchMaterial(itemName) == null )
+                    continue;
+                
+                Integer level = itemConfig.getInt("items." + itemName);
+                
+                if ( level != null)
+                    itemLevels.put(Material.matchMaterial(itemName), level);
+            }
         }
     }
     

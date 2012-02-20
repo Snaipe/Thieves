@@ -69,32 +69,32 @@ public class Thieves extends JavaPlugin {
     
     public static void warn(String msg, Object... arg) 
     {
-    	log(Level.WARNING, msg, arg);
-	}
+        log(Level.WARNING, msg, arg);
+    }
     
     public static boolean writeRessource(String inputPath, String outputPath)
     {
-    	try
-    	{
-	    	InputStream stream = Thieves.class.getResourceAsStream(inputPath);
-			OutputStream out = new FileOutputStream(outputPath);
-	
-			byte[] buf = new byte[1024];
-			int len;
-			while ((len = stream.read(buf)) > 0) 
-			{
-				out.write(buf, 0, len);
-			}
-			stream.close();
-			out.close();
-			
-			return true;
-    	}
-    	catch (IOException ioe) 
+        try
         {
-			warn("Could not write ressource from " + inputPath + " at " + outputPath);
-			return false;
-		} 
+            InputStream stream = Thieves.class.getResourceAsStream(inputPath);
+            OutputStream out = new FileOutputStream(outputPath);
+    
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = stream.read(buf)) > 0) 
+            {
+                out.write(buf, 0, len);
+            }
+            stream.close();
+            out.close();
+            
+            return true;
+        }
+        catch (IOException ioe) 
+        {
+            warn("Could not write ressource from " + inputPath + " at " + outputPath);
+            return false;
+        } 
     }
     
     public SettingManager getSettingManager()

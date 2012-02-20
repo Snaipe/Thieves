@@ -90,8 +90,8 @@ public class InventoryListener implements Listener {
             }
             else
             {
-            	thief.addItemToWealth(item);
-            	
+                thief.addItemToWealth(item);
+                
                 if ( !stealEvent.isSuccessful() )
                 {
                     target.sendMessage(ChatColor.RED + Language.thiefSpotted);
@@ -111,27 +111,27 @@ public class InventoryListener implements Listener {
                 
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
-					@Override
-					public void run() 
-					{
-						
-						net.minecraft.server.ItemStack cursor = SpoutCraftItemStack.getCraftItemStack(new ItemStack(item.getType(), 1, item.getDurability(), item.getData().getData())).getHandle();
-			            ((CraftPlayer) thief.getPlayer()).getHandle().inventory.b(cursor);
-			            
-			            if ( item.getAmount() > 1 )
-			            {
-			            	net.minecraft.server.ItemStack clicked = SpoutCraftItemStack.getCraftItemStack(new ItemStack(item.getType(), item.getAmount() - 1, item.getDurability(), item.getData().getData())).getHandle();
-			                ((CraftPlayer) thief.getPlayer()).getHandle().activeContainer.b(slot).c(clicked);
-			            }
-			            else
-			            {
-			                ((CraftPlayer) thief.getPlayer()).getHandle().activeContainer.b(slot).c(null);
-			            }
-			            
-			            ((CraftPlayer) thief.getPlayer()).getHandle().netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, ((CraftPlayer) thief.getPlayer()).getHandle().inventory.l()));
-					}
-		        	
-		        }, 1L);
+                    @Override
+                    public void run() 
+                    {
+                        
+                        net.minecraft.server.ItemStack cursor = SpoutCraftItemStack.getCraftItemStack(new ItemStack(item.getType(), 1, item.getDurability(), item.getData().getData())).getHandle();
+                        ((CraftPlayer) thief.getPlayer()).getHandle().inventory.b(cursor);
+                        
+                        if ( item.getAmount() > 1 )
+                        {
+                            net.minecraft.server.ItemStack clicked = SpoutCraftItemStack.getCraftItemStack(new ItemStack(item.getType(), item.getAmount() - 1, item.getDurability(), item.getData().getData())).getHandle();
+                            ((CraftPlayer) thief.getPlayer()).getHandle().activeContainer.b(slot).c(clicked);
+                        }
+                        else
+                        {
+                            ((CraftPlayer) thief.getPlayer()).getHandle().activeContainer.b(slot).c(null);
+                        }
+                        
+                        ((CraftPlayer) thief.getPlayer()).getHandle().netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, ((CraftPlayer) thief.getPlayer()).getHandle().inventory.l()));
+                    }
+                    
+                }, 1L);
             }
         }
     }

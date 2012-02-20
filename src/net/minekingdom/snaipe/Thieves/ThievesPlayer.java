@@ -69,20 +69,20 @@ public class ThievesPlayer implements Player {
     
     public int getThiefLevel()
     {
-    	if ( Thieves.getInstance().getSettingManager().isPermissionLevels() )
-    	{
-	    	for ( int i = 10; i > 0; i--)
-	    	{
-	    		if ( hasPermission("thieves.level." + Integer.valueOf(i)) )
-	    			return i;
-	    	}
-	    	
-	    	return 1;
-    	}
-    	else
-    	{
-    		return getThiefLevel(getWorld());
-    	}
+        if ( Thieves.getInstance().getSettingManager().isPermissionLevels() )
+        {
+            for ( int i = 10; i > 0; i--)
+            {
+                if ( hasPermission("thieves.level." + Integer.valueOf(i)) )
+                    return i;
+            }
+            
+            return 1;
+        }
+        else
+        {
+            return getThiefLevel(getWorld());
+        }
     }
 
     public int getThiefLevel(World world)
@@ -92,7 +92,7 @@ public class ThievesPlayer implements Player {
     
     public void incrementThiefLevel()
     {
-    	incrementThiefLevel(getWorld());
+        incrementThiefLevel(getWorld());
     }
     
     public void incrementThiefLevel(World world)
@@ -102,42 +102,42 @@ public class ThievesPlayer implements Player {
     
     public void addThiefExperience(int exp)
     {
-    	addThiefExperience(getWorld(), exp);
+        addThiefExperience(getWorld(), exp);
     }
     
     public void addThiefExperience(World world, int exp)
     {
-    	Long experience = thiefExperience.get(world);
-    	if ( experience != null )
-    	{
-    		thiefExperience.remove(world);
-    		thiefExperience.put(world, experience + exp);
-    	}
-    	else
-    	{
-    		thiefExperience.put(world, (long) exp);
-    	}
+        Long experience = thiefExperience.get(world);
+        if ( experience != null )
+        {
+            thiefExperience.remove(world);
+            thiefExperience.put(world, experience + exp);
+        }
+        else
+        {
+            thiefExperience.put(world, (long) exp);
+        }
     }
     
     public long getThiefExperience()
     {
-    	if ( !Thieves.getInstance().getSettingManager().isPermissionLevels() )
-    	{
-    		return getThiefExperience(getWorld());
-    	}
-    	else
-    	{
-    		return 0;
-    	}
+        if ( !Thieves.getInstance().getSettingManager().isPermissionLevels() )
+        {
+            return getThiefExperience(getWorld());
+        }
+        else
+        {
+            return 0;
+        }
     }
     
     public long getThiefExperience(World world)
     {
-    	Long experience = thiefExperience.get(world);
-    	if ( experience != null )
-    		return experience;
-    	else
-    		return 0;
+        Long experience = thiefExperience.get(world);
+        if ( experience != null )
+            return experience;
+        else
+            return 0;
     }
     
     public void startStealing(ThievesPlayer target)
@@ -179,44 +179,44 @@ public class ThievesPlayer implements Player {
     }
     
 
-	public long getCooldown() 
-	{
-		return cooldown - (new Date()).getTime();
-	}
-	
-	public void setCooldown(int cooldown)
-	{
-		this.cooldown = (new Date()).getTime() + cooldown*1000;
-	}
-	
-	public int getMaxItemWealth()
-	{
-		return getMaxItemWealth(getWorld());
-	}
-	
-	public int getMaxItemWealth(World world)
-	{
-		return 10*thiefLevels.get(world);
-	}
-	
-	public void addItemToWealth(ItemStack item)
-	{
-		itemWealth += ItemValues.valueOf(item.getType());
-	}
-	
-	public void setItemWealth(int wealth)
-	{
-		itemWealth = wealth;
-	}
-	
-	public int getItemWealth()
-	{
-		return itemWealth;
-	}
-	
-	/*
-	 * Default bukkit implementation.
-	 */
+    public long getCooldown() 
+    {
+        return cooldown - (new Date()).getTime();
+    }
+    
+    public void setCooldown(int cooldown)
+    {
+        this.cooldown = (new Date()).getTime() + cooldown*1000;
+    }
+    
+    public int getMaxItemWealth()
+    {
+        return getMaxItemWealth(getWorld());
+    }
+    
+    public int getMaxItemWealth(World world)
+    {
+        return 10*thiefLevels.get(world);
+    }
+    
+    public void addItemToWealth(ItemStack item)
+    {
+        itemWealth += ItemValues.valueOf(item.getType());
+    }
+    
+    public void setItemWealth(int wealth)
+    {
+        itemWealth = wealth;
+    }
+    
+    public int getItemWealth()
+    {
+        return itemWealth;
+    }
+    
+    /*
+     * Default bukkit implementation.
+     */
 
     @Override
     public GameMode getGameMode() 
@@ -1100,56 +1100,56 @@ public class ThievesPlayer implements Player {
         player.updateInventory();
     }
 
-	@Override
-	public boolean addPotionEffect(PotionEffect arg0) 
-	{
-		return player.addPotionEffect(arg0);
-	}
+    @Override
+    public boolean addPotionEffect(PotionEffect arg0) 
+    {
+        return player.addPotionEffect(arg0);
+    }
 
-	@Override
-	public boolean addPotionEffect(PotionEffect arg0, boolean arg1) 
-	{
-		return player.addPotionEffect(arg0, arg1);
-	}
+    @Override
+    public boolean addPotionEffect(PotionEffect arg0, boolean arg1) 
+    {
+        return player.addPotionEffect(arg0, arg1);
+    }
 
-	@Override
-	public boolean addPotionEffects(Collection<PotionEffect> arg0) 
-	{
-		return player.addPotionEffects(arg0);
-	}
+    @Override
+    public boolean addPotionEffects(Collection<PotionEffect> arg0) 
+    {
+        return player.addPotionEffects(arg0);
+    }
 
-	@Override
-	public Collection<PotionEffect> getActivePotionEffects() 
-	{
-		return player.getActivePotionEffects();
-	}
+    @Override
+    public Collection<PotionEffect> getActivePotionEffects() 
+    {
+        return player.getActivePotionEffects();
+    }
 
-	@Override
-	public boolean hasPotionEffect(PotionEffectType arg0) 
-	{
-		return player.hasPotionEffect(arg0);
-	}
+    @Override
+    public boolean hasPotionEffect(PotionEffectType arg0) 
+    {
+        return player.hasPotionEffect(arg0);
+    }
 
-	@Override
-	public void removePotionEffect(PotionEffectType arg0) 
-	{
-		player.removePotionEffect(arg0);
-	}
+    @Override
+    public void removePotionEffect(PotionEffectType arg0) 
+    {
+        player.removePotionEffect(arg0);
+    }
 
-	@Override
-	public boolean canSee(Player arg0) 
-	{
-		return player.canSee(arg0);
-	}
+    @Override
+    public boolean canSee(Player arg0) 
+    {
+        return player.canSee(arg0);
+    }
 
-	@Override
-	public void hidePlayer(Player arg0) 
-	{
-		player.hidePlayer(arg0);
-	}
+    @Override
+    public void hidePlayer(Player arg0) 
+    {
+        player.hidePlayer(arg0);
+    }
 
-	@Override
-	public void showPlayer(Player arg0) {
-		player.showPlayer(arg0);
-	}
+    @Override
+    public void showPlayer(Player arg0) {
+        player.showPlayer(arg0);
+    }
 }

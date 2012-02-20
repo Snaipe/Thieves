@@ -65,12 +65,12 @@ public class ItemStealEvent extends Event implements Cancellable {
     
     public boolean isSuccessful()
     {
-    	return successful;
+        return successful;
     }
     
     public void setSuccessful(boolean successful)
     {
-    	this.successful = successful;
+        this.successful = successful;
     }
     
 }

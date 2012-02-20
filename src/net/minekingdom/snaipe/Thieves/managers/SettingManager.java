@@ -35,7 +35,7 @@ public class SettingManager {
     private int detectRadius;
     private int stunTime;
     private int theftRange;
-	private int cooldown;
+    private int cooldown;
 
     public SettingManager()
     {
@@ -89,10 +89,10 @@ public class SettingManager {
         
         if ( !permissionLevels )
         {
-	        File dataDir = new File(plugin.getDataFolder() + File.separator + "Data");
-	        
-	        if (!dataDir.exists())
-	            dataDir.mkdir();
+            File dataDir = new File(plugin.getDataFolder() + File.separator + "Data");
+            
+            if (!dataDir.exists())
+                dataDir.mkdir();
         }
     
         save();
@@ -112,9 +112,9 @@ public class SettingManager {
     
     public ThievesPlayer loadPlayer(Player player)
     {
-    	if ( plugin.getSettingManager().isPermissionLevels() )
-    		return new ThievesPlayer(player);
-    	
+        if ( plugin.getSettingManager().isPermissionLevels() )
+            return new ThievesPlayer(player);
+        
         File playerDataFile = new File(plugin.getDataFolder() + File.separator + "Data" + File.separator + player.getName() + ".yml");
         
         YamlConfiguration playerData = new YamlConfiguration();
@@ -129,10 +129,10 @@ public class SettingManager {
             HashMap<World, Long> experiences = new HashMap<World, Long>();
             for ( String s_world : activeWorlds )
             {
-            	World world = plugin.getServer().getWorld(s_world);
-            	if ( world == null )
-            		continue;
-            	
+                World world = plugin.getServer().getWorld(s_world);
+                if ( world == null )
+                    continue;
+                
                 levels.put(world, 1);
                 experiences.put(world, (long) 0);
             }
@@ -146,10 +146,10 @@ public class SettingManager {
             HashMap<World, Long> experiences = new HashMap<World, Long>();
             for ( String s_world : activeWorlds )
             {
-            	World world = plugin.getServer().getWorld(s_world);
-            	if ( world == null )
-            		continue;
-            	
+                World world = plugin.getServer().getWorld(s_world);
+                if ( world == null )
+                    continue;
+                
                 levels.put(world, 1);
                 experiences.put(world, (long) 0);
             }
@@ -162,10 +162,10 @@ public class SettingManager {
             HashMap<World, Long> experiences = new HashMap<World, Long>();
             for ( String s_world : activeWorlds )
             {
-            	World world = plugin.getServer().getWorld(s_world);
-            	if ( world == null )
-            		continue;
-            	
+                World world = plugin.getServer().getWorld(s_world);
+                if ( world == null )
+                    continue;
+                
                 levels.put(world, 1);
                 experiences.put(world, (long) 0);
             }
@@ -176,10 +176,10 @@ public class SettingManager {
         HashMap<World, Long> experiences = new HashMap<World, Long>();
         for ( String s_world : activeWorlds )
         {
-        	World world = plugin.getServer().getWorld(s_world);
-        	if ( world == null )
-        		continue;
-        	
+            World world = plugin.getServer().getWorld(s_world);
+            if ( world == null )
+                continue;
+            
             int level = playerData.getInt(s_world + ".level", 1);
             long exp = playerData.getLong(s_world + ".exp", 0);
             levels.put(world, level);
@@ -191,10 +191,10 @@ public class SettingManager {
     
     public void savePlayer(ThievesPlayer player)
     {
-    	if ( plugin.getSettingManager().isPermissionLevels() )
-    		return;
-    	
-    	File playerDataFile = new File(plugin.getDataFolder() + File.separator + "Data" + File.separator + player.getName() + ".yml");
+        if ( plugin.getSettingManager().isPermissionLevels() )
+            return;
+        
+        File playerDataFile = new File(plugin.getDataFolder() + File.separator + "Data" + File.separator + player.getName() + ".yml");
         
         YamlConfiguration playerData = new YamlConfiguration();
         
@@ -276,13 +276,13 @@ public class SettingManager {
         return canStealInNonPvPArea;
     }
 
-	public int getCooldown() 
-	{
-		return cooldown;
-	}
+    public int getCooldown() 
+    {
+        return cooldown;
+    }
 
-	public boolean isPermissionLevels() 
-	{
-		return permissionLevels;
-	}
+    public boolean isPermissionLevels() 
+    {
+        return permissionLevels;
+    }
 }

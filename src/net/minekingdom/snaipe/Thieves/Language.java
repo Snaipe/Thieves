@@ -11,9 +11,9 @@ public class Language {
     public static String victimIsTooFar;
     public static String youHaveBeenDiscovered;
     public static String youCannotStealInNonPvPArea;
-	public static String cooldownNotFinished;
-	public static String levelUp;
-	public static String cannotStealMore;
+    public static String cooldownNotFinished;
+    public static String levelUp;
+    public static String cannotStealMore;
     
     public static void init(FileConfiguration config)
     {
