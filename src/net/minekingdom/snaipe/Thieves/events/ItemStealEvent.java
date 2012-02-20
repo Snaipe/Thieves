@@ -14,15 +14,18 @@ public class ItemStealEvent extends Event implements Cancellable {
     
     private boolean cancelled;
     
+    private boolean successful;
     private ItemStack item;
     private ThievesPlayer thief;
     private ThievesPlayer target;
     
-    public ItemStealEvent(ThievesPlayer thief, ThievesPlayer target, ItemStack item)
+    public ItemStealEvent(ThievesPlayer thief, ThievesPlayer target, ItemStack item, boolean successful)
     {
         this.item = item;
         this.thief = thief;
         this.target = target;
+        this.successful = successful;
+        cancelled = false;
     }
 
     public HandlerList getHandlers() {
@@ -58,6 +61,16 @@ public class ItemStealEvent extends Event implements Cancellable {
     public ItemStack getItem()
     {
         return item;
+    }
+    
+    public boolean isSuccessful()
+    {
+    	return successful;
+    }
+    
+    public void setSuccessful(boolean successful)
+    {
+    	this.successful = successful;
     }
     
 }

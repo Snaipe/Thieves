@@ -13,6 +13,10 @@ general:
     can-steal-in-hotbar: true
     # Whenever the thief can steal in non-pvp regions
     can-steal-in-non-pvp-area: false
+    # Must the players have their thief level defined with permission ?
+    permission-levels: false
+    # The cooldown time ( in seconds )
+    cooldown: 60
 language:
     enabled: "Theft have been enabled on the server."
     disabled: "Theft have been disabled on the server."
@@ -21,3 +25,5 @@ language:
     thief-spotted: "You feel that something is moving inside your pocket."
     cannot-rob-player: "You cannot rob this player."
     cannot-steal-in-non-pvp-area: "You cannot steal in non-PvP area."
+    cooldown-not-finished: "Your cooldown is not finished."
+    level-up: "You just leveled up !"

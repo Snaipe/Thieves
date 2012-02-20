@@ -6,6 +6,7 @@ import net.minekingdom.snaipe.Thieves.Language;
 import net.minekingdom.snaipe.Thieves.ThievesPlayer;
 import net.minekingdom.snaipe.Thieves.Thieves;
 import net.minekingdom.snaipe.Thieves.events.PlayerStealEvent;
+import net.minekingdom.snaipe.Thieves.events.ThiefDetectEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
@@ -57,6 +58,9 @@ public class PlayerListener implements Listener {
                 
                 if ( player.canSeePlayer(thief) )
                 {
+                	ThiefDetectEvent detectEvent = new ThiefDetectEvent(thief, player, player);
+                	plugin.getServer().getPluginManager().callEvent(detectEvent);
+                	
                     thief.closeWindow();
                     plugin.getPlayerManager().removeThief(thief);
                     thief.stun(plugin.getSettingManager().getStunTime());
@@ -75,11 +79,15 @@ public class PlayerListener implements Listener {
                 {
                     if ( player.canSeePlayer(thief) )
                     {
+                    	ThiefDetectEvent detectEvent = new ThiefDetectEvent(thief, plugin.getPlayerManager().getTarget(thief), player);
+                    	plugin.getServer().getPluginManager().callEvent(detectEvent);
+                    	
                         thief.closeWindow();
                         plugin.getPlayerManager().removeThief(thief);
                         thief.stun(plugin.getSettingManager().getStunTime());
                         
                         thief.sendMessage(ChatColor.RED + Language.youHaveBeenDiscovered);
+                        break;
                     }
                 }
             }    
@@ -116,6 +124,12 @@ public class PlayerListener implements Listener {
                     {
                         thief.sendMessage(ChatColor.RED + Language.cannotRobThisPlayer);
                         return;
+                    }
+                    
+                    if ( thief.getCooldown() > 0 )
+                    {
+                    	thief.sendMessage(ChatColor.RED + Language.cooldownNotFinished);
+                    	return;
                     }
                     
                     if ( !target.canSeePlayer(thief) )

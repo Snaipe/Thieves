@@ -1,9 +1,9 @@
 name: Thieves
 author: Snaipe_S
-version: 1.0.0
+version: 1.2.0
 
 main: net.minekingdom.snaipe.Thieves.Thieves
-softdepend: [SpoutPlugin]
+depend: [Spout]
 
 commands:
     thieves:
