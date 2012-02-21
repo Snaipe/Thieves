@@ -814,13 +814,6 @@ public class ThievesPlayer implements Player {
         return player.getExp();
     }
 
-    @Deprecated
-    @Override
-    public int getExperience() 
-    {
-        return player.getExperience();
-    }
-
     @Override
     public int getFoodLevel() 
     {
@@ -1030,13 +1023,6 @@ public class ThievesPlayer implements Player {
     public void setExp(float arg0) 
     {
         player.setExp(arg0);
-    }
-
-    @Deprecated
-    @Override
-    public void setExperience(int arg0) 
-    {
-        player.setExperience(arg0);
     }
 
     @Override

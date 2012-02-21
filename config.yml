@@ -15,6 +15,8 @@ general:
     permission-levels: false
     # The cooldown time ( in seconds )
     cooldown: 60
+    # The enchantment unit multiplier - The higher this value is, the harder it will be to steal an enchanted item.
+    enchantment-unit-multiplier: 0.115
 language:
     enabled: "Theft have been enabled on the server."
     disabled: "Theft have been disabled on the server."

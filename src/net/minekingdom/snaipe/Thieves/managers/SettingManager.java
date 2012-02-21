@@ -35,6 +35,8 @@ public class SettingManager {
     private int stunTime;
     private int theftRange;
     private int cooldown;
+    
+	private double enchantmentUnitMultiplier;
 
     public SettingManager()
     {
@@ -81,6 +83,7 @@ public class SettingManager {
         canStealInNonPvPArea = config.getBoolean("general.can-steal-in-non-pvp-area", false);
         cooldown = config.getInt("general.cooldown", 60);
         permissionLevels = config.getBoolean("general.permission-levels", false);
+        enchantmentUnitMultiplier = config.getDouble("general.enchantment-unit-multiplier", 0.115);
         
         Language.init(config);
         ItemValues.init();
@@ -278,4 +281,9 @@ public class SettingManager {
     {
         return permissionLevels;
     }
+
+	public double getEnchantmentUnitMultiplier() 
+	{
+		return enchantmentUnitMultiplier;
+	}
 }

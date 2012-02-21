@@ -1,7 +1,10 @@
 package net.minekingdom.snaipe.Thieves.listeners;
 
+import java.util.Map;
+
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
@@ -77,8 +80,16 @@ public class InventoryListener implements Listener {
                 return;
             }
             
-            int rand = (int)(Math.random()*100) + 1;
-            boolean successful = rand <= 100*((float) 1 - ((float) ItemValues.valueOf(item.getType())) / ((float) thief.getThiefLevel() + 9 ));
+            Map<Enchantment, Integer> enchantments = item.getEnchantments();
+            double enchantmentMultiplier = 1D;
+            
+            for( Enchantment enchantment : enchantments.keySet() )
+            {
+            	enchantmentMultiplier += plugin.getSettingManager().getEnchantmentUnitMultiplier()*item.getEnchantmentLevel(enchantment);
+            }
+            
+            double rand = (double) (Math.random()*100 + 1);
+            boolean successful = rand <= 100*( 1D - ((double) ItemValues.valueOf(item.getType())*enchantmentMultiplier ) / ((double) thief.getThiefLevel() + 9 ));
             
             ItemStealEvent stealEvent = new ItemStealEvent(thief, target, event.getItem(), successful);
             plugin.getServer().getPluginManager().callEvent(stealEvent);

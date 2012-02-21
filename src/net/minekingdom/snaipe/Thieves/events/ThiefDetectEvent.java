@@ -5,7 +5,6 @@ import net.minekingdom.snaipe.Thieves.ThievesPlayer;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-@SuppressWarnings("serial")
 public class ThiefDetectEvent extends Event {
     
     private static final HandlerList handlers = new HandlerList();
