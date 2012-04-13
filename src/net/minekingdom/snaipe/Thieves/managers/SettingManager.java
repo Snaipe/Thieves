@@ -43,7 +43,7 @@ public class SettingManager {
         plugin = Thieves.getInstance();
         
         config = plugin.getConfig();
-        main = new File(plugin.getDataFolder() + File.separator + "config.yml");
+        main = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "config.yml");
         loadConfig();
     }
 
@@ -90,7 +90,7 @@ public class SettingManager {
         
         if ( !permissionLevels )
         {
-            File dataDir = new File(plugin.getDataFolder() + File.separator + "Data");
+            File dataDir = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "Data");
             
             if (!dataDir.exists())
                 dataDir.mkdir();
@@ -116,7 +116,7 @@ public class SettingManager {
         if ( plugin.getSettingManager().isPermissionLevels() )
             return new ThievesPlayer(player);
         
-        File playerDataFile = new File(plugin.getDataFolder() + File.separator + "Data" + File.separator + player.getName() + ".yml");
+        File playerDataFile = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "Data" + File.separator + player.getName() + ".yml");
         
         YamlConfiguration playerData = new YamlConfiguration();
         
@@ -195,7 +195,7 @@ public class SettingManager {
         if ( plugin.getSettingManager().isPermissionLevels() )
             return;
         
-        File playerDataFile = new File(plugin.getDataFolder() + File.separator + "Data" + File.separator + player.getName() + ".yml");
+        File playerDataFile = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "Data" + File.separator + player.getPlayer().getName() + ".yml");
         
         YamlConfiguration playerData = new YamlConfiguration();
         

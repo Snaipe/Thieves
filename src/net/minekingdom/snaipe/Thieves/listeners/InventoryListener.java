@@ -3,19 +3,14 @@ package net.minekingdom.snaipe.Thieves.listeners;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
-import org.getspout.spout.inventory.SpoutCraftItemStack;
-import org.getspout.spoutapi.event.inventory.InventoryClickEvent;
-import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
-import org.getspout.spoutapi.event.inventory.InventorySlotType;
-
-import net.minecraft.server.Packet103SetSlot;
 
 import net.minekingdom.snaipe.Thieves.ItemValues;
 import net.minekingdom.snaipe.Thieves.Language;
@@ -38,44 +33,48 @@ public class InventoryListener implements Listener {
         if ( event.isCancelled() )
             return;
 
-        if ( event.getPlayer() == null )
+        if ( !(event.getWhoClicked() instanceof Player) )
             return;
         
-        final ThievesPlayer thief = plugin.getPlayerManager().getPlayer(event.getPlayer());
+        final ThievesPlayer thief = plugin.getPlayerManager().getPlayer((Player) event.getWhoClicked());
         final ThievesPlayer target = plugin.getPlayerManager().getTarget(thief);
         
         if ( target != null )
         {
+            
+            final int slot = event.getRawSlot();
+            
             if ( event.isShiftClick() )
             {
                 event.setCancelled(true);
                 return;
             }
             
-            if ( event.getSlotType().equals(InventorySlotType.PACK) )
+            if ( slot == -999 )
             {
                 event.setCancelled(true);
                 return;
             }
             
-            if ( event.getCursor() != null )
+            int containerMaxSlot = Thieves.getInstance().getSettingManager().canStealHotBar() ? 35 : 26 ;
+            
+            if ( slot > containerMaxSlot )
+                return;
+            
+            if ( event.getCursor().getAmount() != 0 )
             {
-                if ( event.getSlotType().equals(InventorySlotType.CONTAINER) )
-                {
-                    event.setCancelled(true);
-                }
+                event.setCancelled(true);
                 return;
             }
-            
-            if ( event.getItem() == null )
+
+            if ( event.getCurrentItem().getAmount() == 0 )
                 return;
             
-            final ItemStack item = event.getItem();
-            final int slot = event.getSlot();
+            final ItemStack item = event.getCurrentItem();
             
             if ( thief.getMaxItemWealth() < thief.getItemWealth() + ItemValues.valueOf(item.getType()) )
             {
-                thief.sendMessage(ChatColor.RED + Language.cannotStealMore);
+                thief.getPlayer().sendMessage(ChatColor.RED + Language.cannotStealMore);
                 event.setCancelled(true);
                 return;
             }
@@ -89,9 +88,9 @@ public class InventoryListener implements Listener {
             }
             
             double rand = (double) (Math.random()*100 + 1);
-            boolean successful = rand <= 100*( 1D - ((double) ItemValues.valueOf(item.getType())*enchantmentMultiplier ) / ((double) thief.getThiefLevel() + 9 ));
+            boolean successful = rand <= 100*( 1D - ((double) ItemValues.valueOf(item.getType())*enchantmentMultiplier ) / ((double) (thief.getThiefLevel() + 9) ));
             
-            ItemStealEvent stealEvent = new ItemStealEvent(thief, target, event.getItem(), successful);
+            ItemStealEvent stealEvent = new ItemStealEvent(thief, target, event.getCurrentItem(), successful);
             plugin.getServer().getPluginManager().callEvent(stealEvent);
             
             if ( stealEvent.isCancelled() )
@@ -105,44 +104,27 @@ public class InventoryListener implements Listener {
                 
                 if ( !stealEvent.isSuccessful() )
                 {
-                    target.sendMessage(ChatColor.RED + Language.thiefSpotted);
+                    target.getPlayer().sendMessage(ChatColor.RED + Language.thiefSpotted);
                     event.setCancelled(true);
                     return;
                 }
                 
-                event.setResult(Result.DENY);
+                event.setResult(Result.ALLOW);
                 
                 thief.addThiefExperience(ItemValues.valueOf(item.getType()));
                 
                 if ( thief.getThiefExperience() > Math.ceil(100*Math.pow(1.6681, thief.getThiefLevel())) )
                 {
-                    thief.sendMessage(ChatColor.RED + Language.levelUp);
+                    thief.getPlayer().sendMessage(ChatColor.RED + Language.levelUp);
                     thief.incrementThiefLevel();
                 }
                 
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-
-                    @Override
-                    public void run() 
-                    {
-                        
-                        net.minecraft.server.ItemStack cursor = SpoutCraftItemStack.getCraftItemStack(new ItemStack(item.getType(), 1, item.getDurability(), item.getData().getData())).getHandle();
-                        ((CraftPlayer) thief.getPlayer()).getHandle().inventory.b(cursor);
-                        
-                        if ( item.getAmount() > 1 )
-                        {
-                            net.minecraft.server.ItemStack clicked = SpoutCraftItemStack.getCraftItemStack(new ItemStack(item.getType(), item.getAmount() - 1, item.getDurability(), item.getData().getData())).getHandle();
-                            ((CraftPlayer) thief.getPlayer()).getHandle().activeContainer.b(slot).c(clicked);
-                        }
-                        else
-                        {
-                            ((CraftPlayer) thief.getPlayer()).getHandle().activeContainer.b(slot).c(null);
-                        }
-                        
-                        ((CraftPlayer) thief.getPlayer()).getHandle().netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, ((CraftPlayer) thief.getPlayer()).getHandle().inventory.l()));
-                    }
-                    
-                }, 1L);
+                ItemStack cursor = new ItemStack( item.getType(), 1, item.getDurability(), item.getData().getData() );
+                ItemStack stack = null;
+                if ( item.getAmount() > 1 )
+                    stack  = new ItemStack( item.getType(), item.getAmount() - 1, item.getDurability(), item.getData().getData() );
+                event.setCursor(cursor);
+                event.setCurrentItem(stack);
             }
         }
     }
@@ -150,10 +132,7 @@ public class InventoryListener implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event)
     {
-        if (event.isCancelled())
-            return;
-        
-        final Player player = event.getPlayer();
+        final Player player = (Player) event.getPlayer();
         if ( player != null )
         {
             ThievesPlayer thief = plugin.getPlayerManager().getPlayer(player);

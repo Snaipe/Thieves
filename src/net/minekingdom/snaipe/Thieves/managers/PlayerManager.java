@@ -7,8 +7,6 @@ import java.util.Map.Entry;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.player.SpoutPlayer;
 
 import net.minekingdom.snaipe.Thieves.ThievesPlayer;
 import net.minekingdom.snaipe.Thieves.Thieves;
@@ -51,7 +49,7 @@ public class PlayerManager {
         saveAllPlayers();
         for ( ThievesPlayer player : onlinePlayers.values() )
         {    
-            plugin.getSettingManager().loadPlayer(player);
+            plugin.getSettingManager().loadPlayer(player.getPlayer());
         }
     }
 
@@ -79,8 +77,7 @@ public class PlayerManager {
     {
         for ( ThievesPlayer thief : stealingPlayers.keySet() )
         {
-            SpoutPlayer splayer = SpoutManager.getPlayer(thief);
-            splayer.closeActiveWindow();
+            thief.getPlayer().closeInventory();
         }
         stealingPlayers.clear();
     }
@@ -101,7 +98,7 @@ public class PlayerManager {
         
         for ( Entry<ThievesPlayer, ThievesPlayer> couple : stealingPlayers.entrySet() )
         {
-            if ( couple.getValue().getDisplayName().equalsIgnoreCase(target.getDisplayName()) )
+            if ( couple.getValue().getPlayer().getName().equalsIgnoreCase(target.getName()) )
             {
                 thief = couple.getKey();
                 break;

@@ -3,7 +3,6 @@ author: Snaipe_S
 version: 1.2.0
 
 main: net.minekingdom.snaipe.Thieves.Thieves
-depend: [Spout]
 
 commands:
     thieves:
