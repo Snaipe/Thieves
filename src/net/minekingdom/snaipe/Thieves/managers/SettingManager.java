@@ -86,6 +86,8 @@ public class SettingManager {
         enchantmentUnitMultiplier = config.getDouble("general.enchantment-unit-multiplier", 0.115);
         
         Language.init(config);
+        save();
+        
         ItemValues.init();
         
         if ( !permissionLevels )
@@ -96,7 +98,7 @@ public class SettingManager {
                 dataDir.mkdir();
         }
     
-        save();
+        
     }
 
     public void save()

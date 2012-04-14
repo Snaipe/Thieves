@@ -36,11 +36,24 @@ public class ItemValues {
         {
             if (!exists)
             {
-                exists = Thieves.writeRessource("/items.yml", plugin.getDataFolder().getAbsolutePath() + File.separator + "items.yml");
+                exists = Thieves.writeRessource("/items.yml", itemConfigFile.getPath());
             }
             
             if (exists)
+            {
                 itemConfig.load(itemConfigFile);
+                
+                for ( String itemName : itemConfig.getConfigurationSection("items").getKeys(false) )
+                {
+                    if ( Material.matchMaterial(itemName) == null )
+                        continue;
+                    
+                    Integer level = itemConfig.getInt("items." + itemName);
+                    
+                    if ( level != null)
+                        itemLevels.put(Material.matchMaterial(itemName), level);
+                }
+            }
         } 
         catch (FileNotFoundException e) 
         {
@@ -53,20 +66,6 @@ public class ItemValues {
         catch (InvalidConfigurationException e) 
         {
             e.printStackTrace();
-        }
-        
-        if (exists)
-        {
-            for ( String itemName : itemConfig.getConfigurationSection("items").getKeys(false) )
-            {
-                if ( Material.matchMaterial(itemName) == null )
-                    continue;
-                
-                Integer level = itemConfig.getInt("items." + itemName);
-                
-                if ( level != null)
-                    itemLevels.put(Material.matchMaterial(itemName), level);
-            }
         }
     }
     

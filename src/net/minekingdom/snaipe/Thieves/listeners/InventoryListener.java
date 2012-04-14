@@ -113,18 +113,21 @@ public class InventoryListener implements Listener {
                 
                 thief.addThiefExperience(ItemValues.valueOf(item.getType()));
                 
-                if ( thief.getThiefExperience() > Math.ceil(100*Math.pow(1.6681, thief.getThiefLevel())) )
+                if ( thief.canLevelUp() )
                 {
                     thief.getPlayer().sendMessage(ChatColor.RED + Language.levelUp);
                     thief.incrementThiefLevel();
                 }
                 
-                ItemStack cursor = new ItemStack( item.getType(), 1, item.getDurability(), item.getData().getData() );
-                ItemStack stack = null;
+                ItemStack cursor = item.clone();
+                          cursor.setAmount(1);
+                
                 if ( item.getAmount() > 1 )
-                    stack  = new ItemStack( item.getType(), item.getAmount() - 1, item.getDurability(), item.getData().getData() );
+                    item.setAmount(item.getAmount() - 1);
+                else
+                    event.setCurrentItem(null);
+                
                 event.setCursor(cursor);
-                event.setCurrentItem(stack);
             }
         }
     }

@@ -182,4 +182,9 @@ public class ThievesPlayer {
     {
         return itemWealth;
     }
+
+    public boolean canLevelUp()
+    {
+        return getThiefExperience() > Math.ceil(100*Math.pow(1.6681, getThiefLevel()));
+    }
 }
